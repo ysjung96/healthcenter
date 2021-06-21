@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: reservation
+  namespace: healthcenter
   labels:
     app: reservation
 spec:
@@ -16,7 +17,7 @@ spec:
     spec:
       containers:
         - name: reservation
-          image: 496278789073.dkr.ecr.ap-northeast-2.amazonaws.com/teamtwohotel2-reservation:latest
+          image: 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/reservation:v1
           ports:
             - containerPort: 8080
           readinessProbe:

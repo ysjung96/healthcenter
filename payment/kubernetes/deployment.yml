@@ -2,11 +2,11 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment
-  namespace: teamtwohotel
+  namespace: healthcenter
   labels:
     app: order
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: payment
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: payment
-          image: 496278789073.dkr.ecr.ap-northeast-2.amazonaws.com/teamtwohotel2-payment:latest
+          image: 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/payment:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

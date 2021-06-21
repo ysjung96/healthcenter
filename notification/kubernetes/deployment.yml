@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: customer
-  namespace: teamtwohotel
+  name: notification
+  namespace: healthcenter
   labels:
-    app: customer
+    app: notification
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: customer
+      app: notification
   template:
     metadata:
       labels:
-        app: customer
+        app: notification
     spec:
       containers:
-        - name: customer
-          image: 496278789073.dkr.ecr.ap-northeast-2.amazonaws.com/teamtwohotel2-customer:latest
+        - name: notification
+          image: 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/notification:v1
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
