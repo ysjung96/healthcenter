@@ -75,13 +75,13 @@ Final Project AWS 3차수 - 1팀 제출자료입니다.
  - MSAEZ 툴에서 이벤트스토밍 작업
  - 업무별 담당자를 분배하여 각 도메인별 command,event,aggregate,policy를 도출
  - 이후 java소스로의 컨버전을 고려하여 네이밍을 영문 대문자로 시작하는 것으로 명칭변경 적용
-![ver1](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/storming_1.JPG)
+![ver1](refer/storming_1.JPG)
 
 #### ver2 - relation정의
-![ver2](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/storming_2.JPG)
+![ver2](refer/storming_2.JPG)
 
 #### ver3 - attribute생성
-![final](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/storming_new.JPG)
+![final](refer/storming_new.JPG)
 
 
 ### 기능 요구사항을 커버하는지 검증
@@ -819,15 +819,15 @@ mvn clean package -B
 - docker build -t 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/payment:v1 .
 - docker build -t 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/reservation:v1 .
 - docker build -t 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/notification:v1 .
-![ysjung05.png](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/ysjung05.png)
-![ysjung06.png](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/ysjung06.png)
+![ysjung05.png](refer/ysjung05.png)
+![ysjung06.png](refer/ysjung06.png)
 ###### ECR에 컨테이너 이미지 배포
 - docker push 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/order:v1
 - docker push 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/payment:v1
 - docker push 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/reservation:v1
 - docker push 740569282574.dkr.ecr.ap-northeast-2.amazonaws.com/notification:v1
-![ysjung03.png](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/ysjung03.png)
-![ysjung04.png](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/ysjung04.png)
+![ysjung03.png](refer/ysjung03.png)
+![ysjung04.png](refer/ysjung04.png)
 
 ###### 네임스페이스 healthcenter 생성 및 이동
 ```sh
@@ -842,14 +842,14 @@ kubectl create -f deployment.yml
 ```sh
 kubectl get pods
 ```
-![ysjung02.png](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/ysjung02.png) 
+![ysjung02.png](refer/ysjung02.png) 
 --> 이미지 에러..수정필요(READY 1/1)
 
 
 ```sh
 kubectl get deployment
 ```
-![ysjung01.png](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/ysjung01.png)  
+![ysjung01.png](refer/ysjung01.png)  
 --> 이미지 에러..수정필요(available 뜬것 확인)
 
 
@@ -963,7 +963,7 @@ defaulting to time-based testing: 60 seconds
 ## 오토스케일 아웃
 -앞서 CB 는 시스템을 안정되게 운영할 수 있게 해줬지만 사용자의 요청을 100% 받아들여주지 못했기 때문에 이에 대한 보완책으로 자동화된 확장 기능을 적용하고자 한다.
 #### reservation deployment.yml 파일에 resources 설정을 추가한다 
-![1](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/1.PNG)
+![1](refer/1.PNG)
 
 #### reservation 서비스에 대한 replica 를 동적으로 늘려주도록 HPA 를 설정한다. 
 설정은 CPU 사용량이 50프로를 넘어서면 replica 를 10개까지 늘려준다:
@@ -1022,7 +1022,7 @@ payment-555696c874-tp72c       1/1     Running            0          5m12s
 reservation-65ff4b4974-sbbm6   1/1     Running            0          31m
 ```
 #### Readiness 설정 
-![2](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/2.PNG)
+![2](refer/2.PNG)
 -	Readiness 설정 내용 확인
 ```
 root@labs--244363308:/home/project# kubectl describe deploy payment -n healthcenter
@@ -1065,7 +1065,7 @@ Events:          <none>
 #### 부하테스트 siege pod 설치 및 실행
 
 
-![3](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/3.PNG)
+![3](refer/3.PNG)
 
 충분한 시간만큼 부하를 주고,
 그 사이 새로운 image 를 반영후 deployment.yml을 배포
@@ -1073,8 +1073,8 @@ Siege 로그를 보면서 배포 시 무정지로 배포되는 것을 확인.
 ```
 root@siege:/# siege -c1 -t60S -v http://payment:8080/payment   ==> 60초 설정
 ```
-![4](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/4.PNG)
-![5](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/5.PNG)
+![4](refer/4.PNG)
+![5](refer/5.PNG)
 --> 수정필요. paymentHistory로 해서 날린걸로 변경했어야함. not found증적임. 
 --> 수정한 증적은 아래...
 ```
@@ -1099,12 +1099,12 @@ livenessProbe에 /tmp/healthy 파일이 존재하는지 재확인하는 설정�
 
 #### reservation deployment.yml 파일 수정
 
-![6](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/6.PNG)
+![6](refer/6.PNG)
 #### 설정 수정된 상태 확인
 ```
 # kubectl describe pod reservation -n healthcenter
 ```
-![7](https://github.com/mulcung03/AWS3_healthcenter/blob/main/refer/7.PNG)
+![7](refer/7.PNG)
 - 컨테이너 실행 후 90초 동인은 정상이나 이후 /tmp/healthy 파일이 삭제되어 livenessProbe에서 실패를 리턴하게 되고, pod 정상 상태 일 때 pod 진입하여 /tmp/healthy 파일 생성해주면 정상 상태 유지 확인
 
 ```
